@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>тамагочи</title>
+    <style>
+        #персонаж{
+            width: 132px;
+            animation: movie 3s infinite ease-in-out;
+        }
+        @keyframes movie {
+            from{margin-left: 0px;}
+            50%{margin-left: 330px;}
+            /* 40%{margin-left: 50px;}
+            60%{margin-left: 250px;}
+            80%{margin-left: 350px;} */
+            to{margin-left: 0px;}
+        }
+        .button{
+            width: 50px;
+            height: 50px;
+            border: 1px solid black;
+            display: inline-block;
+            border-radius: 50%;
+
+        }
+        #buttons{
+            text-align: center;
+        }
+        .icons1 img{
+            margin: 10px 20px;
+        }
+        #персонаж2{
+            display: none;
+            animation: movie 3s infinite ease-in-out;
+        }
+        #персонаж3{
+            display: none;
+        }
+        #персонаж4{
+            display: none;
+            width: 160px;
+        }
+        #персонаж5{
+            display: none;
+        }
+        #вопрос{
+            display:none;
+            width: fit-content;
+            top: 200px;
+            left: 145px;
+            border: 3px dotted cornflowerblue;
+            padding: 10px;
+            position: absolute;
+        }
+        #баллы{
+            margin: 10px 20px;
+            font-size: 40px;
+        }
+        .icons2{
+            position: absolute;
+            bottom: 50px;
+            left: 10px;
+        }
+        .icons2 img{
+            margin-right: 30px;
+        }
+        .icons1 img:hover{
+            cursor: pointer;
+        }
+        .icons2 img:hover{
+            cursor: pointer;
+        }
+        #stat {
+            display: none;
+            position: absolute;
+            top: 200px
+        }
+    </style>
+    <script>
+        function food(){
+            // clearInterval(ihungry)
+            // console.log(ihungry)
+            // document.getElementById("персонаж").style.display="none"
+            // document.getElementById("персонаж2").style.display="inline"
+            // setTimeout('document.getElementById("персонаж2").style.display="none";document.getElementById("персонаж").style.display="inline"',5000)
+            // setTimeout("ihungry=setInterval('hungry()',Math.round(Math.random()*20000+7000))",10000)
+            clearInterval(ihungry)
+            console.log(ihungry)
+            document.getElementById("персонаж").style.display = "none"
+            document.getElementById("персонаж2").style.display = "inline"
+            // setTimeout(
+            //     'document.getElementById("персонаж2").style.display="none";document.getElementById("персонаж").style.display="inline"',
+            //     5000)
+            setTimeout(
+                'document.getElementById("персонаж2").style.display="none";document.getElementById("персонаж").style.display="inline";document.getElementById("персонаж").src = "t1.png";',
+                5000)
+
+            setTimeout("ihungry=setInterval('hungry()',Math.round(Math.random()*20000+7000))", 7000)
+
+        }
+        function bath(){
+            document.getElementById("персонаж").style.opacity="0"
+            setTimeout('document.getElementById("персонаж").style.opacity="1"',1000)
+        }
+        function game(){
+            document.getElementById("вопрос").style.display="block"
+        }
+        let сумма=0
+        function stopside(){
+            let x= parseInt(getComputedStyle(document.getElementById("персонаж"), null).marginLeft)
+            document.getElementById("персонаж").style.animationPlayState="paused"
+            let c=""
+            if (document.forms[0].v1[0].checked) c="l"
+            if (document.forms[0].v1[1].checked) c="r"
+            if (c=="l" && x<150) {alert("угадал") ; сумма++; document.querySelector("#баллы").innerHTML=сумма}
+            else if (c=="r" && x>150) {alert ("угадал") ; сумма++; document.querySelector("#баллы").innerHTML=сумма}
+            else alert("не угадал")
+            document.getElementById("персонаж").style.animationPlayState="running"
+        }
+        function startstopside(){
+            setTimeout("stopside()",Math.random()*5000)
+        }
+        function TL(){
+            // alert(getComputedStyle(document.getElementById("turnLight"),null).backgroundColor )
+            if (getComputedStyle(document.getElementById("turnLight"),null).backgroundColor == "rgb(192, 192, 192)") document.getElementById("turnLight").style.backgroundColor="white"
+            else document.getElementById("turnLight").style.backgroundColor="silver"
+        }
+        function LightOff(){
+            // document.querySelector("main").style.backgroundColor="darkviolet"
+            if (getComputedStyle(document.querySelector("main"),null).backgroundColor == "rgb(222, 222, 223)"){
+                 document.querySelector("main").style.backgroundColor="indigo"
+                 document.getElementById("персонаж").src="t5.png"
+                 document.getElementById("персонаж").style.width= "160px"
+                }
+            else{
+                 document.querySelector("main").style.backgroundColor="rgb(222, 222, 223)"
+                 document.getElementById("персонаж").src="t1.png"
+                }
+        }
+        let время=new Date()
+        let час=время.getHours()
+        alert(час)
+        function sleep(){
+
+        }
+        function cure(){
+            document.getElementById("персонаж").src="t1.png"
+        }
+        setInterval('document.getElementById("персонаж").src="t3.jpg"; document.getElementById("персонаж").style.width= "160px"',Math.round(Math.random()*35000+15000))
+        function hungry(){
+            // alert(document.getElementById("персонаж").src.indexOf("t1"))
+            if (document.getElementById("персонаж").src.indexOf("t1")!=-1){
+            document.getElementById("персонаж").src="t7.png";
+         document.getElementById("персонаж").style.width= "160px"
+            }
+        }
+        function attention(){
+            document.getElementById("персонаж").src="t1.png"
+        }
+        let zdorv=["нормально","больной"]
+        let golodv=["сыт","голодный"]
+        function statust(){
+            document.getElementById("stat").style.display="block"
+            if (document.getElementById("персонаж").src.indexOf("t3.jpg")!=-1)document.getElementById("zdor").innerHTML=zdorv[1]
+            else document.getElementById("zdor").innerHTML=zdorv[0]
+            if (document.getElementById("персонаж").src.indexOf("t7.png")!=-1)document.getElementById("golod").innerHTML=golodv[1]
+            else document.getElementById("golod").innerHTML=golodv[0]
+            console.log(document.getElementById("персонаж").src)
+            setTimeout('document.getElementById("stat").style.display="none"',3000)
+        }
+        setInterval('document.getElementById("персонаж").src="t2.jpg"; document.getElementById("персонаж").style.width= "160px"',Math.round(Math.random()*35000+25000))
+        let ihungry=setInterval('hungry()',Math.round(Math.random()*20000+7000))
+    </script>
+</head>
+<body>
+    <main style="background-color: rgba(222, 222, 233, 1.0); width: 500px;height: 600px ; padding: 50px;margin: 50px auto; border-radius: 10px; position: relative;">
+        <div class="icons1">
+            <img src="icons/Status_icon.png" alt="" onclick="statust()">
+            <img src="icons/Food_icon.png" alt="" onclick="food()">
+            <img src="icons/Bathroom_icon.png" alt="" onclick="bath()">
+            <img src="icons/Game_icon.png" alt="" onclick="game()">
+        </div>
+        <form action="" id="вопрос">
+            <p>на какой стороне остановится тамагочи?</p>
+            <input type="radio" name="v1" id=""> на левой
+            <input type="radio" name="v1" id=""> на правой
+            <input type="button" value="отправить" onclick="startstopside()">
+        </form>
+        <div id="stat">
+        <h3>Мамечи</h3>
+        <h3 id="zdor"></h3>
+        <h3 id="golod"></h3>
+        </div>
+<img id="персонаж" src="t1.png" style="margin-top: 200px; margin-left: 200px;" alt="">
+<img id="персонаж2" src="t4.png" style="margin-top: 200px; margin-left: 200px;" alt="">
+<img id="персонаж3" src="t5.png" style="margin-top: 200px;margin-left: 200px;" alt="">
+<img id="персонаж4" src="t3.jpg" style="margin-top: 200px;margin-left: 200px;" alt="">
+<img id="персонаж5" src="t2.jpg" style="margin-top: 200px;margin-left: 200px;" alt="">
+<div class="icons2"><span id="баллы">0</span>
+<img src="icons/Lights_icon.png" alt="" onclick="LightOff()">
+<img src="icons/Medicine_icon2.png" alt="" onclick="cure()">
+<img src="icons/Medicine_icon.png" alt="" onclick="cure()">
+<img src="icons/Attention_icon.png" alt="" onclick="attention()">
+</div>
+    </main>
+    <!-- <div id="buttons">
+<div class="button" id="turnLight" onclick="TL()"></div>
+<div class="button"></div>
+<div class="button"></div>
+    </div> -->
+</body>
+</html>
